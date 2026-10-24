@@ -52,6 +52,8 @@ DIY 电子元件存储管理系统用于管理电阻、电容、芯片等电子�
 
 **AI说明：** CH584F程序及泰山派程序均为AI生成，MounRiver Studio Ⅲ的集成AI很好用！
 
+**开源地址：** https://github.com/MeXdiy/MeXsmarEC
+
 
 ------
 
