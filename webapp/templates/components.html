@@ -1,0 +1,38 @@
+{% extends "layout.html" %}
+{% block title %}元件列表 - 元件管理系统{% endblock %}
+
+{% block content %}
+<div class="panel">
+    <div class="panel-header">
+        <h2>元件列表</h2>
+        <!-- 视图切换 -->
+        <div class="view-switch">
+            <button class="btn btn-secondary active" data-view="all">全部</button>
+            <button class="btn btn-secondary" data-view="category">按分类</button>
+            <button class="btn btn-secondary" data-view="box">按箱子</button>
+        </div>
+    </div>
+
+    <!-- 搜索栏 -->
+    <div class="search-bar">
+        <input type="text" id="listSearch" placeholder="多关键词搜索，如 100k 0603">
+        <button class="btn btn-primary" id="searchBtn">搜索</button>
+        <button class="btn btn-secondary" id="clearBtn">清空</button>
+    </div>
+
+    <!-- 动态筛选栏 (按分类/按箱子时显示) -->
+    <div id="dynamicFilter" class="filter-bar" style="display:none;"></div>
+
+    <!-- 表格区 -->
+    <div id="listContainer" class="table-responsive">
+        <div class="loading">加载中...</div>
+    </div>
+    
+    <!-- 分页 -->
+    <div id="pagination" class="pagination"></div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="/js/components.js"></script>
+{% endblock %}

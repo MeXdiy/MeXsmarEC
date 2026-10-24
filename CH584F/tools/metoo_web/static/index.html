@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MeXsmarEC 上位机</title>
+<link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+
+<header>
+  <h1>MeXsmarEC 上位机</h1>
+  <div class="hdr-right">
+    <span id="ws-state" class="pill off">后端未连接</span>
+    <span id="scan-state" class="muted"></span>
+    <button id="btn-scan">扫描设备</button>
+  </div>
+</header>
+
+<main>
+  <aside>
+    <h2>设备 <span id="dev-count" class="muted"></span></h2>
+    <ul id="dev-list" class="dev-list"></ul>
+    <p id="dev-empty" class="muted">还没扫描，点右上角「扫描设备」。</p>
+  </aside>
+
+  <section class="work">
+    <nav class="tabs">
+      <button class="tab active" data-tab="nfc">NFC 上报</button>
+      <button class="tab" data-tab="led">LED 控制</button>
+      <button class="tab" data-tab="write">写卡</button>
+      <button class="tab" data-tab="debug">调试</button>
+    </nav>
+
+    <div class="page active" id="page-nfc">
+      <div class="bar">
+        <span id="nfc-count" class="muted">0 条</span>
+        <label class="chk">
+          <input type="checkbox" id="dedup-chk" checked> 按 msgId 去重
+          <span id="dedup-dropped" class="muted"></span>
+        </label>
+        <button id="nfc-clear">清空</button>
+      </div>
+      <table class="grid">
+        <thead>
+          <tr><th class="col-t">时间</th><th class="col-node">上报节点</th>
+              <th class="col-uid">UID</th><th>标签文本</th></tr>
+        </thead>
+        <tbody id="nfc-body"></tbody>
+      </table>
+    </div>
+
+    <div class="page" id="page-led">
+      <div class="form">
+        <label>发送通道（已连接的板）
+          <select id="led-via"></select>
+        </label>
+        <label>目标板 MAC
+          <input id="led-target" list="target-list" value="FF:FF:FF:FF:FF:FF" spellcheck="false">
+          <datalist id="target-list"></datalist>
+        </label>
+        <div class="row">
+          <button id="led-on" class="primary">点亮</button>
+          <button id="led-off">熄灭</button>
+        </div>
+        <p class="muted">目标填 FF:FF:FF:FF:FF:FF 表示全网广播。</p>
+      </div>
+    </div>
+
+    <div class="page" id="page-write">
+      <div class="form">
+        <label>发送通道（已连接的板）
+          <select id="write-via"></select>
+        </label>
+        <label>目标板 MAC
+          <input id="write-target" list="target-list" value="FF:FF:FF:FF:FF:FF" spellcheck="false">
+        </label>
+        <label>写入文本
+          <textarea id="write-text" rows="4" placeholder="要写进 NFC 标签的文本"></textarea>
+        </label>
+        <div class="row">
+          <button id="write-send" class="primary">下发写卡指令</button>
+          <span id="write-len" class="muted">0 / 200 字节</span>
+        </div>
+        <p class="muted">下发后把 NFC 标签放到目标板天线上，板子会把文本写成 NDEF 记录。</p>
+      </div>
+    </div>
+
+    <div class="page" id="page-debug">
+      <div class="form">
+        <label>发送通道（已连接的板）
+          <select id="raw-via"></select>
+        </label>
+        <label>十六进制帧
+          <textarea id="raw-hex" rows="3" spellcheck="false"
+                    placeholder="A5 00 00 00 01 02 FF FF FF FF FF FF 01"></textarea>
+        </label>
+        <div class="row">
+          <button id="raw-send" class="primary">发送</button>
+          <button id="log-clear">清空日志</button>
+          <span id="raw-hint" class="muted"></span>
+        </div>
+      </div>
+      <pre id="raw-log" class="log"></pre>
+    </div>
+  </section>
+</main>
+
+<script src="/static/app.js"></script>
+</body>
+</html>

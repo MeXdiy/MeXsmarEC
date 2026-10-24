@@ -1,0 +1,82 @@
+{% extends "layout.html" %}
+{% block title %}存储管理 - 元件管理系统{% endblock %}
+
+{% block content %}
+<div class="storage-layout">
+    <!-- 左侧树 -->
+    <div class="panel tree-panel">
+        <div class="panel-header">
+            <h2>存储层级</h2>
+            <button id="refreshTree" class="btn btn-secondary">刷新</button>
+        </div>
+        <div id="storageTree" class="tree">
+            <div class="loading">加载中...</div>
+        </div>
+    </div>
+
+    <!-- 右侧表单与列表 -->
+    <div class="right-column">
+        <!-- 存储库 -->
+        <div class="panel">
+            <h2>存储库</h2>
+            <form id="warehouseForm" class="form-grid">
+                <label>库名 *<input type="text" id="wName" required></label>
+                <label>NFC UID<input type="text" id="wNfc" placeholder="可选"></label>
+                <label>BLE MAC<input type="text" id="wMac" placeholder="可选"></label>
+                <div class="form-actions full"><button type="submit" class="btn btn-primary">添加库</button></div>
+            </form>
+            <div id="warehouseList" class="mini-list"></div>
+        </div>
+
+        <!-- 存储箱 -->
+        <div class="panel">
+            <h2>存储箱</h2>
+            <form id="boxForm" class="form-grid">
+                <label>所属库<select id="bWarehouse" required></select></label>
+                <label>规格<select id="bSpec" required></select></label>
+                <label>名称 *<input type="text" id="bName" required></label>
+                <label>NFC UID<input type="text" id="bNfc"></label>
+                <label>优先分类<input type="text" id="bPrefCat" list="categoryListStorage"></label>
+                <label>优先封装<input type="text" id="bPrefPkg" list="packageListStorage"></label>
+                <label>BLE MAC<input type="text" id="bMac"></label>
+                <div class="form-actions full"><button type="submit" class="btn btn-primary">添加箱</button></div>
+            </form>
+            <datalist id="categoryListStorage"></datalist>
+            <datalist id="packageListStorage"></datalist>
+            <div id="boxList" class="mini-list"></div>
+        </div>
+
+        <!-- 箱规格 -->
+        <div class="panel">
+            <h2>箱规格</h2>
+            <form id="specForm" class="form-grid">
+                <label>规格名 *<input type="text" id="sName" required></label>
+                <label>容量 *<input type="number" id="sCapacity" required min="1"></label>
+                <label class="full">兼容的存储库（不选=全通用）
+                    <select id="sWarehouses" multiple size="3"></select>
+                </label>
+                <div class="form-actions full"><button type="submit" class="btn btn-primary">添加规格</button></div>
+            </form>
+            <div id="specList" class="mini-list"></div>
+        </div>
+
+        <!-- 盒规格 -->
+        <div class="panel">
+            <h2>盒规格</h2>
+            <form id="binSpecForm" class="form-grid">
+                <label>规格名 *<input type="text" id="bsName" required></label>
+                <label class="full">兼容的箱规格（可多选）
+                    <select id="bsBoxSpecs" multiple size="3"></select>
+                </label>
+                <label class="full">备注<input type="text" id="bsNote"></label>
+                <div class="form-actions full"><button type="submit" class="btn btn-primary">添加盒规格</button></div>
+            </form>
+            <div id="binSpecList" class="mini-list"></div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="/js/storage.js"></script>
+{% endblock %}

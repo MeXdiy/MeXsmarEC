@@ -1,0 +1,61 @@
+{% extends "layout.html" %}
+{% block title %}添加元件 - 元件管理系统{% endblock %}
+
+{% block content %}
+<div class="panel">
+    <h2>添加元件</h2>
+    <p class="hint">系统会根据分类和封装，自动分配存储箱与空闲格位；也可在下方手动指定。</p>
+
+    <form id="addComponentForm" class="form-grid">
+        <label class="full">名称 *
+            <input type="text" id="cName" required placeholder="如 10kΩ 电阻">
+        </label>
+        <label>分类
+            <input type="text" id="cCategory" list="categoryList" placeholder="如 电阻">
+            <datalist id="categoryList"></datalist>
+        </label>
+        <label>封装
+            <input type="text" id="cPackage" list="packageList" placeholder="如 0603">
+            <datalist id="packageList"></datalist>
+        </label>
+        <label>值
+            <input type="text" id="cValue" placeholder="如 10kΩ">
+        </label>
+        <label>数量
+            <input type="number" id="cQuantity" value="0" min="0">
+        </label>
+        <label>NFC UID
+            <input type="text" id="cNfc" placeholder="留空则自动分配">
+        </label>
+        <label>备注
+            <input type="text" id="cNote" placeholder="可选">
+        </label>
+        <label class="full">手动指定存储箱
+            <select id="cBoxId">
+                <option value="">自动分配</option>
+            </select>
+        </label>
+        
+        <div class="form-actions full">
+            <button type="submit" class="btn btn-primary">提交入库</button>
+            <button type="button" id="btnWriteNfc" class="btn btn-secondary">写入NFC标签</button>
+            <button type="button" id="btnSaveDraft" class="btn btn-secondary">保存草稿</button>
+        </div>
+    </form>
+
+    <div id="addResult" class="result-box"></div>
+
+    <!-- 草稿区 -->
+    <div class="draft-section">
+        <div class="panel-header" style="margin-top:20px; border-top: 1px solid #eee; padding-top: 10px;">
+            <h3>草稿列表 <span id="draftCount" class="dim"></span></h3>
+            <button type="button" id="btnClearDrafts" class="btn btn-secondary">清空</button>
+        </div>
+        <div id="draftList" class="mini-list"></div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="/js/add_component.js"></script>
+{% endblock %}

@@ -1,0 +1,22 @@
+{% extends "layout.html" %}
+{% block title %}概览 - 元件管理系统{% endblock %}
+
+{% block content %}
+<div class="panel">
+    <h2>系统概览</h2>
+    <div id="overviewStats" class="stat-grid">
+        <div class="loading">加载中...</div>
+    </div>
+</div>
+
+<div class="panel">
+    <h2>最近添加</h2>
+    <div id="recentList" class="mini-list">
+        <div class="loading">加载中...</div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="/js/index.js"></script>
+{% endblock %}

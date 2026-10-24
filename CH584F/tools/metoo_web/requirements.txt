@@ -1,0 +1,9 @@
+# MeXsmarEC 上位机依赖（Linux）
+#
+#   pip install -r requirements.txt
+#
+# 系统侧还需要 BlueZ（bleak 通过它访问蓝牙）：
+#   sudo apt install bluez          # BlueZ >= 5.43
+
+bleak>=0.21.0
+aiohttp>=3.9.0

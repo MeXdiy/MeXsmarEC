@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <!-- 关键：禁止移动端缩放，优化触控 -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>{% block title %}MeX电仓{% endblock %}</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+    <header class="topbar">
+        <div class="logo">📦 MeX电仓</div>
+
+        <!-- 移动端菜单按钮 -->
+        <button class="menu-toggle" id="menuToggle">☰</button>
+
+        <nav class="nav-links" id="navLinks">
+            <a href="/" class="{% if active_page == 'index' %}active{% endif %}">概览</a>
+            <a href="/components" class="{% if active_page == 'components' %}active{% endif %}">元件列表</a>
+            <a href="/components/add" class="{% if active_page == 'add' %}active{% endif %}">添加元件</a>
+            <a href="/storage" class="{% if active_page == 'storage' %}active{% endif %}">存储管理</a>
+            <a href="/settings" class="{% if active_page == 'settings' %}active{% endif %}">设置</a>
+        </nav>
+    </header>
+
+
+
+    <main class="container">
+        {% block content %}{% endblock %}
+    </main>
+
+    <!-- 全局通用弹窗 (手机端全屏，PC端居中) -->
+    <div id="modalOverlay" class="modal-overlay">
+        <div class="modal">
+            <div class="modal-header">
+                <h3 id="modalTitle">详情</h3>
+                <button class="modal-close" id="modalClose">×</button>
+            </div>
+            <div class="modal-body" id="modalBody"></div>
+            <div class="modal-footer">
+                <button class="btn btn-danger" id="modalDelete" style="display:none; margin-right:auto;">删除</button>
+                <button class="btn btn-secondary" id="modalCancel">取消</button>
+                <button class="btn btn-primary" id="modalSave">保存</button>
+            </div>
+        </div>
+    </div>
+
+
+    <script src="/js/common.js"></script>
+    {% block scripts %}{% endblock %}
+</body>
+
+</html>

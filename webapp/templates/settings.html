@@ -1,0 +1,96 @@
+{% extends "layout.html" %}
+{% block title %}设置 - 元件管理系统{% endblock %}
+
+{% block content %}
+<div class="panel">
+    <h2>默认值与显示</h2>
+    <div class="form-grid">
+        <label>默认存储库
+            <select id="set_default_warehouse"><option value="">（不指定）</option></select>
+        </label>
+        <label>默认箱规格
+            <select id="set_default_spec"><option value="">（不指定）</option></select>
+        </label>
+        <label>默认数量
+            <input type="number" id="set_default_quantity" min="0" value="0">
+        </label>
+        <label>每页显示条数
+            <input type="number" id="set_page_size" min="10" max="500" value="100">
+        </label>
+        <!-- 加在“每页显示条数”后面 -->
+        <label class="full" style="margin-top:10px;">LED 定位颜色与亮度</label>
+        <label>定位颜色
+            <input type="color" id="set_led_color" style="height: 42px; padding: 4px;">
+        </label>
+        <label>亮度 (0-255)
+            <input type="range" id="set_led_brightness" min="0" max="255" value="255" oninput="document.getElementById('ledBrightnessVal').innerText=this.value">
+            <span class="dim">当前值: <span id="ledBrightnessVal">255</span></span>
+        </label>
+
+        <div class="form-actions full">
+            <button id="saveBasic" class="btn btn-primary">保存设置</button>
+        </div>
+    </div>
+</div>
+
+<div class="panel">
+    <h2>蓝牙设备连接</h2>
+    <p class="hint">用于连接 CH584 主控节点。</p>
+    <div id="bleStatus" class="mini-item" style="margin-bottom: 12px;">
+        <span>当前状态</span>
+        <strong style="color:#e74c3c;">未连接</strong>
+    </div>
+    
+    <div class="form-actions">
+        <button id="btnBleScan" class="btn btn-primary">扫描周边设备</button>
+        <button id="btnBleDisconnect" class="btn btn-danger" style="display:none;">断开连接</button>
+    </div>
+
+    <div id="bleScanList" class="mini-list" style="margin-top:12px;">
+        <!-- 扫描结果将渲染在这里 -->
+    </div>
+</div>
+
+<div class="panel">
+    <h2>自动备份</h2>
+    <p class="hint">定期将数据库备份到服务器的 <code>backups/</code> 目录。</p>
+    <div class="form-grid">
+        <label>启用自动备份
+            <select id="set_auto_backup_enabled">
+                <option value="0">关闭</option>
+                <option value="1">开启</option>
+            </select>
+        </label>
+        <label>备份间隔（分钟）
+            <input type="number" id="set_auto_backup_interval" min="5" max="1440" value="60">
+        </label>
+        <label>保留数量
+            <input type="number" id="set_auto_backup_keep" min="1" max="100" value="10">
+        </label>
+        <div class="form-actions full">
+            <button id="saveBackup" class="btn btn-primary">保存</button>
+            <button id="btnBackupNow" class="btn btn-secondary">立即备份一次</button>
+        </div>
+    </div>
+    <div id="backupList" class="mini-list"></div>
+</div>
+
+<div class="panel">
+    <h2>系统信息</h2>
+    <div id="systemInfo" class="mini-list">
+        <div class="loading">加载中...</div>
+    </div>
+</div>
+
+<div class="panel danger-panel">
+    <h2>危险操作</h2>
+    <p class="hint" style="color:#c0392b;">清空所有数据库内容，此操作不可恢复！请提前备份。</p>
+    <div class="form-actions">
+        <button id="btnClearAll" class="btn btn-danger">清空所有数据</button>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="/js/settings.js"></script>
+{% endblock %}
